@@ -1,0 +1,2 @@
+#These SpringBoot 3 exercises are from the Udemy course - Spring Boot 3: Learn Spring 6, Spring Core, Spring REST, Spring MVC, Spring Security, Thymeleaf, JPA, Hibernate, MySQL
+01-QuickStart: REST Controller, DevTools, Actuator, application.properties
