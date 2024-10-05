@@ -1,0 +1,17 @@
+package org.freecode.demo.springboot4restapis.dao;
+
+import java.util.List;
+
+import org.freecode.demo.springboot4restapis.model.Article;
+
+public interface ArticleDAO {
+	
+	List<Article> findAll();
+	
+	Article findById(int id);
+	
+	Article save(Article article);
+	
+	void deleteById(int id);
+
+}

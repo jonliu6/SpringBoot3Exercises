@@ -1,0 +1,9 @@
+USE demodb;
+
+--DROP TABLE t_article;
+CREATE TABLE t_article (
+  id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  title VARCHAR(500) NOT NULL,
+  category VARCHAR(100) NOT NULL,
+  content VARCHAR(2000)
+);

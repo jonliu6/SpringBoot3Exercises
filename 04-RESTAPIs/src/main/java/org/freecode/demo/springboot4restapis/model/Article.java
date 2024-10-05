@@ -2,10 +2,26 @@ package org.freecode.demo.springboot4restapis.model;
 
 import java.io.Serializable;
 
-public class Article implements Serializable {
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name="t_article")
+public class Article implements Serializable {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id")
+	private int id;
+	@Column(name="title")
 	private String title;
+	@Column(name="category")
 	private String category;
+	@Column(name="content")
 	private String content;
 	
 	public Article() {
@@ -15,6 +31,13 @@ public class Article implements Serializable {
 		this.title = aTitle;
 		this.category = aCategory;
 		this.content = aContent;
+	}
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getTitle() {
 		return title;
@@ -36,6 +59,6 @@ public class Article implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "Article [title=" + title + ", category=" + category + ", content=" + content + "]";
+		return "Article [id=" + id + ", title=" + title + ", category=" + category + ", content=" + content + "]";
 	}
 }
