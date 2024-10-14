@@ -1,6 +1,6 @@
 # Getting Started
 ### Summary
-This project demonstrates Spring Boot with REST APIs AND JPA, thru RestController > Service > DAO > Entity. Also, it has few examples of exception handling of REST APIs.
+This project demonstrates Spring Boot REST APIs, JPA, thru RestController > Service > DAO > Entity. There are few examples of exception handling of REST APIs. Also, the access to the REST APIs are using Spring Security - with static account, In Memory and JDBC authentication and authorization.
 
 ### Reference Documentation
 For further reference, please consider the following sections:
