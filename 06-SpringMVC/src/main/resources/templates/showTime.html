@@ -1,0 +1,11 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Time from Thymeleaf</title>
+  <!-- reference CSS file with relative path, and "@" is app root. -->
+  <link rel="stylesheet" th:href="@{/css/demo.css}" />
+</head>
+<body>
+  <p th:text="'The time from the server is: ' + ${systemTime}" class="timeStyle"></p>
+</body>
+</html>

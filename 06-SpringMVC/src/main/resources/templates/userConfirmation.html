@@ -1,0 +1,11 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>User Confirmation</title>
+</head>
+<body>
+  <span th:text="'Hello ' + ${param.userName} + ' (from Request Parameter)'"></span>
+  <p />
+  <span th:text="'Hello ' + ${userName} + ' (from Model Attribute)'"></span>
+</body>
+</html>
