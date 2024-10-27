@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>User Registration</title>
+</head>
+<body>
+  <h3>User Registered with the following information</h3><p/>
+  User Name: <span th:text="${registeredUser.firstName} + ' ' + ${registeredUser.lastName}"></span><p/>
+  Gender: <span th:text="${registeredUser.gender}"></span><p/>
+  Occupation: <span th:text="${registeredUser.occupation}"></span><p/>
+  Favorite Topics: <p/>
+  <ul>
+    <li th:each="aTopic : ${registeredUser.favoriteTopics}" th:text="${aTopic}"></li>
+  </ul>
+  <a href="./register">Register a new User</a>
+</body>
+</html>

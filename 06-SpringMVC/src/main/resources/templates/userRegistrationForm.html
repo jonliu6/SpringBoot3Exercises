@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>User Registration</title>
+</head>
+<body>
+<h3>User Registration:</h3> <p/>
+  <!-- Note: th:object uses the object name added into the model  -->
+  <form th:action="@{/confirmRegistration}" th:object="${registeredUser}" method="POST">
+    <!-- th:field binds with the object property name such as ${registeredUser.firstName}, shortcut is *{firstName}, which is calling the getter() to obtain the value -->
+    First Name: <input type="text" name="firstName" placeholder="Please enter your first name" th:field="*{firstName}" /><p/>
+    Last Name: <input type="text" name="lastName" placeholder="Please enter your last name"  th:field="${registeredUser.lastName}" /><p/>
+    <!-- Note: *{} is the name of the binding field of the RegisteredUser object. The options map the attribute name added into the model -->
+    Gender: <input type="radio"
+                   th:field="*{gender}"
+                   th:each="aGender : ${genderOptions}"
+                   th:value="${aGender}"
+                   th:text="${aGender}" /><p/>
+    Occupation: 
+    <select th:field="*{occupation}">
+      <!-- occupations object name is the one added into the model -->
+      <option th:each="anOccupation : ${occupationOptions}" th:value="${anOccupation}" th:text="${anOccupation}" />
+    </select><p/>
+    Favorite Topics: <input type="checkbox" th:field="*{favoriteTopics}" th:each="aTopic : ${topicOptions}" th:value="${aTopic}" th:text="${aTopic}" /><p/>
+    <input type="submit" value="Submit" /> &nbsp;&nbsp;
+    <input type="reset" value="Reset" />
+  </form>
+</body>
+</html>
