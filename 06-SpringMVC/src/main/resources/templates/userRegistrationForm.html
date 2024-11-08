@@ -3,14 +3,29 @@
 <head>
   <meta charset="UTF-8"/>
   <title>User Registration</title>
+  <style>
+    .error {color: red;}
+  </style>
 </head>
 <body>
 <h3>User Registration:</h3> <p/>
   <!-- Note: th:object uses the object name added into the model  -->
   <form th:action="@{/confirmRegistration}" th:object="${registeredUser}" method="POST">
     <!-- th:field binds with the object property name such as ${registeredUser.firstName}, shortcut is *{firstName}, which is calling the getter() to obtain the value -->
-    First Name: <input type="text" name="firstName" placeholder="Please enter your first name" th:field="*{firstName}" /><p/>
-    Last Name: <input type="text" name="lastName" placeholder="Please enter your last name"  th:field="${registeredUser.lastName}" /><p/>
+    First Name*: <input type="text" name="firstName" placeholder="Please enter your first name" th:field="*{firstName}" />
+    <span th:if="${#fields.hasErrors('firstName')}"
+          th:errors="*{firstName}"
+          class="error"></span><p/>
+    Last Name*: <input type="text" name="lastName" placeholder="Please enter your last name"  th:field="${registeredUser.lastName}" />
+    <span th:if="${#fields.hasErrors('lastName')}"
+          th:errors="*{lastName}"
+          class="error"></span><p/>
+    
+    Age: <input type="text" name="age" placeholder="Please enter a numeric value" th:field="${registeredUser.age}" />
+    <span th:if="${#fields.hasErrors('age')}"
+          th:errors="*{age}"
+          class="error"></span><p/>
+    
     <!-- Note: *{} is the name of the binding field of the RegisteredUser object. The options map the attribute name added into the model -->
     Gender: <input type="radio"
                    th:field="*{gender}"
@@ -22,6 +37,17 @@
       <!-- occupations object name is the one added into the model -->
       <option th:each="anOccupation : ${occupationOptions}" th:value="${anOccupation}" th:text="${anOccupation}" />
     </select><p/>
+    
+    Postal Code: <input type="text" name="postalCode" placeholder="Please enter a valid postal code" th:field="${registeredUser.postalCode}" />
+    <span th:if="${#fields.hasErrors('postalCode')}"
+          th:errors="*{postalCode}"
+          class="error"></span><p/>
+          
+    E-mail: <input type="text" name="email" placeholder="Please enter your email address"  th:field="${registeredUser.email}" />
+    <span th:if="${#fields.hasErrors('email')}"
+          th:errors="*{email}"
+          class="error"></span><p/>
+    
     Favorite Topics: <input type="checkbox" th:field="*{favoriteTopics}" th:each="aTopic : ${topicOptions}" th:value="${aTopic}" th:text="${aTopic}" /><p/>
     <input type="submit" value="Submit" /> &nbsp;&nbsp;
     <input type="reset" value="Reset" />

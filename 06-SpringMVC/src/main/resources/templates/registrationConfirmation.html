@@ -7,8 +7,11 @@
 <body>
   <h3>User Registered with the following information</h3><p/>
   User Name: <span th:text="${registeredUser.firstName} + ' ' + ${registeredUser.lastName}"></span><p/>
+  Age: <span th:text="${registeredUser.age}"></span><p/>
   Gender: <span th:text="${registeredUser.gender}"></span><p/>
   Occupation: <span th:text="${registeredUser.occupation}"></span><p/>
+  Postal Code: <span th:text="${registeredUser.postalCode}"></span><p/>
+  Email: <span th:text="${registeredUser.email}"></span><p/>
   Favorite Topics: <p/>
   <ul>
     <li th:each="aTopic : ${registeredUser.favoriteTopics}" th:text="${aTopic}"></li>
