@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" th:href="@{/css/bootstrap-5.3.3.min.css}"/>
+  <title>New User</title>
+</head>
+<body>
+  <h3>Registration: </h3>
+  <hr/>
+  
+  <div id="container">
+    <form action="#" th:action="@{/users/processRegistration}" th:object="${aUser}" method="POST">
+      <div class="row">
+        <div class="col-2">First Name:</div>
+        <div class="col-10"><input type="text" th:field="*{firstName}" placeholder="Please enter first name" class="form-control mb-4 w-25"/></div>
+      </div>
+      <div class="row">
+        <div class="col-2">Last Name:</div>
+        <div class="col-10"><input type="text" th:field="*{lastName}" placeholder="Please enter last name" class="form-control mb-4 w-25"/></div>
+      </div>
+      <div class="row">
+        <div class="col-2">Email:</div>
+        <div class="col-10"><input type="text" th:field="*{email}" placeholder="Please enter email" class="form-control mb-4 w-25"/></div>
+      </div>
+      <div class="row">
+        <div class="col-2">Age:</div>
+        <div class="col-10"><input type="text" th:field="*{age}" placeholder="Please enter your age (19 to 100)" class="form-control mb-4 w-25"/></div>
+      </div>
+      
+      <button type="submit" class="btn btn-info col-2">Save</button>
+    </form>
+    
+    <a th:href="@{/users/list}">Back to User List</a>
+  </div>
+</body>
+</html>
