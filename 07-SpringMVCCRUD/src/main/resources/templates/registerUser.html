@@ -14,19 +14,68 @@
     <form action="#" th:action="@{/users/processRegistration}" th:object="${aUser}" method="POST">
       <div class="row">
         <div class="col-2">First Name:</div>
-        <div class="col-10"><input type="text" th:field="*{firstName}" placeholder="Please enter first name" class="form-control mb-4 w-25"/></div>
+        <div class="col-10">
+          <input type="text" th:field="*{firstName}" placeholder="Please enter first name" class="form-control mb-4 w-25"/>
+          <span th:if="${#fields.hasErrors('firstName')}"
+                th:errors="*{firstName}"
+                class="text-danger"></span>
+        </div>
       </div>
       <div class="row">
         <div class="col-2">Last Name:</div>
-        <div class="col-10"><input type="text" th:field="*{lastName}" placeholder="Please enter last name" class="form-control mb-4 w-25"/></div>
+        <div class="col-10">
+          <input type="text" th:field="*{lastName}" placeholder="Please enter last name" class="form-control mb-4 w-25"/>
+          <span th:if="${#fields.hasErrors('lastName')}"
+                th:errors="*{lastName}"
+                class="text-danger"></span>
+        </div>
       </div>
       <div class="row">
         <div class="col-2">Email:</div>
-        <div class="col-10"><input type="text" th:field="*{email}" placeholder="Please enter email" class="form-control mb-4 w-25"/></div>
+        <div class="col-10">
+          <input type="text" th:field="*{email}" placeholder="Please enter email" class="form-control mb-4 w-25"/>
+          <span th:if="${#fields.hasErrors('email')}"
+                th:errors="*{email}"
+                class="text-danger"></span>
+        </div>
       </div>
       <div class="row">
         <div class="col-2">Age:</div>
-        <div class="col-10"><input type="text" th:field="*{age}" placeholder="Please enter your age (19 to 100)" class="form-control mb-4 w-25"/></div>
+        <div class="col-10">
+          <input type="text" th:field="*{age}" placeholder="Please enter your age (19 to 100)" class="form-control mb-4 w-25"/>
+          <span th:if="${#fields.hasErrors('age')}"
+                th:errors="*{age}"
+                class="text-danger"></span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">Gender:</div>
+        <div class="col-10">
+          <input type="radio"
+                 th:field="*{gender}"
+                 th:each="aGender : ${genderOptions}"
+                 th:value="${aGender}"
+                 th:text="${aGender}" /><p/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">Occupation:</div>
+        <div class="col-10">
+          <input type="radio"
+                 th:field="*{occupation}"
+                 th:each="anOccupation : ${occupationOptions}"
+                 th:value="${anOccupation}"
+                 th:text="${anOccupation}" /><p/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">Postal Code:</div>
+        <div class="col-10">
+          <input type="text" th:field="*{postalCode}" placeholder="Please enter a postal code with 6 alphanumeric characters." class="form-control mb-4 w-25"/>
+          <span th:if="${#fields.hasErrors('postalCode')}"
+                th:errors="*{postalCode}"
+                class="text-danger"></span>
+        </div>
       </div>
       
       <button type="submit" class="btn btn-info col-2">Save</button>

@@ -2,6 +2,8 @@ package org.freecode.demo.springboot3mvccrud.model;
 
 import java.io.Serializable;
 
+import org.freecode.demo.springboot3mvccrud.validation.EmailFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -43,9 +45,9 @@ public class RegisteredUser implements Serializable {
 	@Column(name = "gender")
 	private String gender;
 	
-	@NotNull(message = "is required")
 	@Id
 	@Column(name = "email")
+	@EmailFormat
 	private String email;
 	
 	@Pattern(regexp = "^[a-zA-Z0-9]{6}", message="only 6 characters or digits allowed")
