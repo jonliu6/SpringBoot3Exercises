@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="utf-8"/>
+  <title>Home page of Spring MVC Security Exercises</title>
+</head>
+<body>
+  <h3>Welcome to <span th:text="${application_description}"></span></h3>
+  <span th:text="${system_time}"></span>
+  <hr/>
+  
+  <!-- display user name and role -->
+  <p>
+  User: <span sec:authentication="principal.username"></span>
+  </p>
+  <p>
+  Role: <span sec:authentication="principal.authorities"></span>
+  </p>
+  <hr/>
+  
+  <div sec:authorize="hasRole('CONTRIBUTOR')">
+    <p><a th:href="@{/contribution}">Contributor Page</a></p>
+  </div>
+  
+  <div sec:authorize="hasRole('ADMIN')">
+    <p><a th:href="@{/administration}">Administrator Page</a></p>
+  </div>
+  
+  <form action="#" th:action="@{/logout}" method="POST">
+    <input type="submit" value="Logout" />
+  </form>
+</body>
+</html>

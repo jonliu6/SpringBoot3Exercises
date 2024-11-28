@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8"/>
+  <title>Error page of Spring MVC Security Exercises</title>
+  <style>
+    .errorTitle {
+      font-weight: bold;
+      color: red; 
+    }
+    .errorContent { color: red; }
+  </style>
+</head>
+<body>
+  <h3 class="errorTitle">Error caught!</h3>
+  <hr/>
+  <span class="errorContent">Oops, an error was caught - error code: </span><span th:text="${httpStatusCode}"></span>
+  <p/>
+  <a th:href="@{/home}">Back to Home</a>
+</body>
+</html>

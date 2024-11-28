@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8"/>
+  <title>Access Denied page of Spring MVC Security Exercises</title>
+  <style>
+    .errorTitle {
+      font-weight: bold;
+      color: red; 
+    }
+    .errorContent { color: red; }
+  </style>
+</head>
+<body>
+  <h3 class="errorTitle">Your Access Denied</h3>
+  <hr/>
+  <span class="errorContent">Sorry, you do not have the proper permission to access certain site resources.</span>
+  <p/>
+  <a th:href="@{/home}">Back to Home</a>
+</body>
+</html>
