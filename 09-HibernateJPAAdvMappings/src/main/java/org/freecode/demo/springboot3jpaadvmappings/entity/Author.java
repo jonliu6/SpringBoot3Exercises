@@ -1,5 +1,8 @@
 package org.freecode.demo.springboot3jpaadvmappings.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -7,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -40,7 +44,20 @@ public class Author {
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "authorcontactid")
+	/**
+	 * instead of CascadeType.ALL, we can list out the specific ones and prevent the cascading to the related records. 
+	 * Note: need to un-associate the related properties.
+	 * eg cascade = (CascadeType.PERSIST, Cascade.MERGE, Cascade.REFRESH, Cascade.DETACH)
+	 */
 	private AuthorContact authorContact;
+	
+	@OneToMany(mappedBy = "author",
+			   cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+	/**
+	 * mappedBy is the author property in Post
+	 * disable cascade during removal
+	 */
+	private List<Post> posts;
 	
 	public int getId() {
 		return id;
@@ -77,9 +94,27 @@ public class Author {
 	public void setAuthorContact(AuthorContact authorContact) {
 		this.authorContact = authorContact;
 	}
+	
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
+	}
+	
+	public void addPost(Post aPost) {
+		if (posts == null) {
+			posts = new ArrayList<Post>();
+		}
+		
+		posts.add(aPost);
+		aPost.setAuthor(this); // important to link authorId to a post
+	}
 
 	@Override
 	public String toString() {
-		return "Author [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", gender=" + gender + "]";
+		return "Author [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", gender=" + gender + "]" + "\n" +
+	           "Posts: " + posts;
 	}
 }

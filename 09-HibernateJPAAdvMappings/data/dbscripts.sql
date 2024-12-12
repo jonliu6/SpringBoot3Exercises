@@ -10,6 +10,7 @@ CREATE TABLE t_author (
   CONSTRAINT fk_authorContact FOREIGN KEY (authorContactId) REFERENCES t_author_contact(id)
 );
 
+-- One-to-One relationship between Author and Author Contact
 -- DROP TABLE t_author_contact;
 CREATE TABLE t_author_contact (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -17,19 +18,36 @@ CREATE TABLE t_author_contact (
   website VARCHAR(200)
 );
 
+-- Many-To-One relationship between Post and Author
 -- DROP TABLE t_post;
 CREATE TABLE t_post (
   id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
   title VARCHAR(200) NOT NULL,
   content VARCHAR(1000) NOT NULL,
-  authorId INT
+  authorId INT,
+  CONSTRAINT fk_author FOREIGN KEY (authorId) REFERENCES t_author(id)
 );
 
--- DROP TABLE t_post_comment;
-CREATE TABLE t_post_comment (
+-- One-to-Many between Post and Comments
+-- DROP TABLE t_comment;
+CREATE TABLE t_comment (
   id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  comments VARCHAR(500) NOT NULL,
-  authorId INT,
-  postId INT NOT NULL,
+  comment VARCHAR(500) NOT NULL,
+  postId INT,
   FOREIGN KEY (postId) REFERENCES t_post(id)
+);
+
+-- Many-to-Many between Posts and References - One Post have multiple References, and one Reference can be used in multiple Posts
+-- DROP TABLE t_reference;
+CREATE TABLE t_reference (
+  id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  referenceType VARCHAR(50),
+  reference VARCHAR(1000)
+);
+
+-- DROP TABLE t_post_reference;
+CREATE TABLE t_post_reference (
+  postId INT,
+  referenceId INT,
+  CONSTRAINT pk_post_reference PRIMARY KEY (postId, referenceId)
 );
