@@ -2,6 +2,7 @@ package org.freecode.demo.springboot3jpaadvmappings.dao;
 
 import org.freecode.demo.springboot3jpaadvmappings.entity.Author;
 import org.freecode.demo.springboot3jpaadvmappings.entity.Post;
+import org.freecode.demo.springboot3jpaadvmappings.entity.Reference;
 
 public interface AppDAO {
 
@@ -29,4 +30,11 @@ public interface AppDAO {
 
     Post findPostWithCommentsById(int postId);
     void deletePostAndCommentsById(int postId);
+    
+    Post findPostWithReferencesById(int postId);
+    
+    Reference findReferenceById(int refId);
+    public Reference findReferenceAndPostsById(int refId);
+    
+    void deleteReferenceById(int refId);
 }

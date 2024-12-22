@@ -5,6 +5,7 @@ import org.freecode.demo.springboot3jpaadvmappings.entity.Author;
 import org.freecode.demo.springboot3jpaadvmappings.entity.AuthorContact;
 import org.freecode.demo.springboot3jpaadvmappings.entity.Comment;
 import org.freecode.demo.springboot3jpaadvmappings.entity.Post;
+import org.freecode.demo.springboot3jpaadvmappings.entity.Reference;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -64,13 +65,77 @@ public class Springboot3JpaAdvMappingsApplication {
 			
 //			createPostsWithComments(dao);
 			
-			Post post = findPostWithComments(dao);
-			System.out.println("found: " + post + "\r\n" + (post == null ? " [no comments]" : "Comments: " + post.getComments()));
+//			Post post = findPostWithComments(dao);
+//			System.out.println("found: " + post + "\r\n" + (post == null ? " [no comments]" : "Comments: " + post.getComments()));
+//			
+//			dao.deletePostAndCommentsById(post.getId());
 			
-			dao.deletePostAndCommentsById(post.getId());
+			// Many-to-Many mapping tests
+			// createPostAndReferences(dao);
+//			Post post= findPostWithReferencesById(dao);		
+//			System.out.println("Post found: " + post + "\r\nReferences:" + post.getReferences());
+			
+//			addMoreReferenceToPost(dao);
+			
+//			deletePost(dao); // post deleted but references must not
+			
+			deleteReference(dao);
 		};
 	}
 	
+	private void deleteReference(AppDAO dao) {
+		int refId = 2;
+		dao.deleteReferenceById(refId);
+		System.out.println("Reference " + refId + " deleted!");
+	}
+	
+	private void deletePost(AppDAO dao) {
+		int postId = 10;
+		dao.deletePostById(postId);
+		System.out.println("Post " + postId + " deleted!");
+	}
+	
+	/**
+	 * @param dao
+	 */
+	private void addMoreReferenceToPost(AppDAO dao) {
+		int refId = 3;
+		int postId = 10;
+		Reference ref1 = dao.findReferenceById(refId);
+		Post post = dao.findPostWithReferencesById(postId); // NOTE: need to use this method to find references as well avoid lazy instantiation issue
+		System.out.println("Post found: " + post + "\r\nReferences:" + post.getReferences());
+		if (ref1 != null && post != null) {
+			post.addReference(ref1); // only need to add from one side because of the lazy instantiation
+		}
+		dao.update(post);
+	}
+	
+	private Post findPostWithReferencesById(AppDAO dao) {
+		int postId = 10;
+		Post post = dao.findPostWithReferencesById(postId);
+		return post;
+	}
+	
+	private void createPostAndReferences(AppDAO dao) {
+		// create new Post
+		Post post = new Post("How to become a full stack developer", "You need to know one of the backend programming language, eg Java, C#. And, you need to know web front end basic, eg HTML, CSS, Javascript...");
+		
+		// create references
+		Reference ref1 = new Reference("Book", "HTML 5 and CSS 3");
+		Reference ref2 = new Reference("Book", "Action in SpringBoot 3");
+		Reference ref3 = new Reference("Website", "https://start.spring.io");
+		
+		// add references to the post
+		post.addReference(ref1);
+		post.addReference(ref2);
+		post.addReference(ref3);
+		
+		// save post and references;
+		dao.update(post);
+		
+		System.out.println("Post: " + post + "\n" + "References: " + post.getReferences());
+	}
+
 	private Post findPostWithComments(AppDAO dao) {
 		int postId = 9;
 		Post found = dao.findPostWithCommentsById(postId);

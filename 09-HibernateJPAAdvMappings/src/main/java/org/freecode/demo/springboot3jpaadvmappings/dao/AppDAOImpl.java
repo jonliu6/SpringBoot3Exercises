@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.freecode.demo.springboot3jpaadvmappings.entity.Author;
 import org.freecode.demo.springboot3jpaadvmappings.entity.Post;
+import org.freecode.demo.springboot3jpaadvmappings.entity.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -69,7 +70,7 @@ public class AppDAOImpl implements AppDAO{
 	@Override
 	@Transactional
 	public void update(Post aPost) {
-		if (findPostById(aPost.getId()) == null) {
+		if (aPost.getId() == 0 || findPostById(aPost.getId()) == null) {
 			entityManager.persist(aPost);
 		}
 		else {
@@ -119,6 +120,7 @@ public class AppDAOImpl implements AppDAO{
 	}
 
 	@Override
+	@Transactional
 	public void deletePostById(int id) {
 		Post found = findPostById(id);
 		if (found != null) {
@@ -131,6 +133,37 @@ public class AppDAOImpl implements AppDAO{
 	public int deleteAllPostsWithoutAuthor() {
 		int deletedCount = entityManager.createQuery("DELETE FROM Post p").executeUpdate();
 		return deletedCount;
+	}
+
+	@Override
+	public Post findPostWithReferencesById(int postId) {
+		TypedQuery<Post> query = entityManager.createQuery("FROM Post p JOIN FETCH p.references WHERE p.id = :pid", Post.class);
+		query.setParameter("pid", postId);
+		
+		return query.getSingleResult();
+	}
+	
+	@Override
+	public Reference findReferenceAndPostsById(int refId) {
+		TypedQuery<Reference> query = entityManager.createQuery("FROM Reference r JOIN FETCH r.posts WHERE r.id = :rid", Reference.class);
+		query.setParameter("rid", refId);
+		
+		return query.getSingleResult();
+	}
+
+
+	@Override
+	public Reference findReferenceById(int refId) {
+		return entityManager.find(Reference.class, refId);
+	}
+
+	@Override
+	@Transactional
+	public void deleteReferenceById(int refId) {
+		Reference ref = findReferenceById(refId);
+		if (ref != null) {
+			entityManager.remove(ref);
+		}
 	}
 
 }

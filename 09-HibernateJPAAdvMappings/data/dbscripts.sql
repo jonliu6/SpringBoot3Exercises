@@ -49,5 +49,9 @@ CREATE TABLE t_reference (
 CREATE TABLE t_post_reference (
   postId INT,
   referenceId INT,
-  CONSTRAINT pk_post_reference PRIMARY KEY (postId, referenceId)
+  CONSTRAINT pk_post_reference PRIMARY KEY (postId, referenceId),
+  CONSTRAINT fk_post FOREIGN KEY (postId) REFERENCES t_post (id)
+  ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT fk_reference FOREIGN KEY (referenceId) REFERENCES t_reference (id)
+  ON DELETE NO ACTION ON UPDATE NO ACTION
 );
