@@ -9,7 +9,7 @@ Advice: what action is taken and when it should be applied
   - After throwing advice: run after the method (if exception thrown)
   - Around advice: run before and after the method
 
-Join Point: when to apply code during program execution
+Join Point: when to apply code during program execution. can be used to get the method signature and arguments
 
 Pointcut: a predicate expression for where advice should be applied
 
