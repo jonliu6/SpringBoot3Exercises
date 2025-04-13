@@ -91,15 +91,17 @@ public class SpringBoot3RestApiSecurityConfiguration {
 		// READER can view, CONTRIBUTOR can create and update, and only ADMIN can delete 
 		httpsec.authorizeHttpRequests(configurer -> configurer
 				.requestMatchers(HttpMethod.GET, "/api/articles").hasRole("READER")
-				.requestMatchers(HttpMethod.GET, "/datarest/groups").hasRole("READER")
+				.requestMatchers(HttpMethod.GET, "/datarest/groups").hasRole("READER") // for DATA REST
 				.requestMatchers(HttpMethod.GET, "/api/articles/**").hasRole("READER")
-				.requestMatchers(HttpMethod.GET, "/datarest/groups/**").hasRole("READER")
+				.requestMatchers(HttpMethod.GET, "/datarest/groups/**").hasRole("READER") // for DATA REST
 				.requestMatchers(HttpMethod.POST, "/api/articles").hasRole("CONTRIBUTOR")
-				.requestMatchers(HttpMethod.POST, "/datarest/groups").hasRole("CONTRIBUTOR")
+				.requestMatchers(HttpMethod.POST, "/datarest/groups").hasRole("CONTRIBUTOR") // for DATA REST
 				.requestMatchers(HttpMethod.PUT, "/api/articles").hasRole("CONTRIBUTOR")
 				.requestMatchers(HttpMethod.PUT, "/datarest/groups/**").hasRole("CONTRIBUTOR") // for DATA REST
+				.requestMatchers(HttpMethod.PATCH, "/api/articles/**").hasRole("CONTRIBUTOR") // for partial updates
+				.requestMatchers(HttpMethod.PATCH, "/datarest/groups/**").hasRole("CONTRIBUTOR") // for DATA REST
 				.requestMatchers(HttpMethod.DELETE, "/api/articles/**").hasRole("ADMIN")
-				.requestMatchers(HttpMethod.DELETE, "/datarest/groups/**").hasRole("ADMIN")
+				.requestMatchers(HttpMethod.DELETE, "/datarest/groups/**").hasRole("ADMIN") // for DATA REST
 				);
 				
 		// use HTTP basic authentication
